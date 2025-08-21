@@ -2,5 +2,5 @@
 
 void main()
 {
-	gamePlay();
+	pong2::gamePlay();
 }

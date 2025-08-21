@@ -1,3 +1,6 @@
 #pragma once
 
-void gamePlay();
+namespace pong2
+{
+	void gamePlay();
+}
