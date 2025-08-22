@@ -1,7 +1,6 @@
 #include "game.h"
-#include <iostream>
 
-#include "player.h"
+#include <iostream>
 
 using namespace std;
 
@@ -12,9 +11,12 @@ namespace pong2
         const int screenWidth = 800;
         const int screenHeight = 450;
 
+        Player player1;
+        Player player2;
+
         InitWindow(screenWidth, screenHeight, "PONG2 Ahora es personal");
 
-        //SetTargetFPS(60);
+        Init(player1,player2);
 
         while (!WindowShouldClose())
         {
@@ -22,8 +24,8 @@ namespace pong2
             Update();
 
             BeginDrawing();
-            Draw();
-            ClearBackground(RAYWHITE);
+            //ClearBackground(BLACK);
+            Draw(player1,player2);
 
             //DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
@@ -31,6 +33,12 @@ namespace pong2
         }
 
         CloseWindow();
+    }
+
+    void Init(Player& player1, Player& player2)
+    {
+        Initplayer(player1,player1.initPlayer1PosX,player1.initPlayerPosY);
+        Initplayer(player2, player2.initPlayer2PosX, player2.initPlayerPosY);
     }
 
     void Input()
@@ -43,9 +51,10 @@ namespace pong2
 
     }
 
-    void Draw()
+    void Draw(Player& player1, Player& player2)
     {
-
+        DrawPlayer(player1);
+        DrawPlayer(player2);
     }
 
 }
