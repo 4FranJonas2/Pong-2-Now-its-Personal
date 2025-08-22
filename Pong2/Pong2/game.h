@@ -2,5 +2,8 @@
 
 namespace pong2
 {
-	void gamePlay();
+	void GamePlay();
+	void Input();
+	void Update();
+	void Draw();
 }
