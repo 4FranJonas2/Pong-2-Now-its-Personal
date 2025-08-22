@@ -1,36 +1,46 @@
 #include "player.h"
 
-namespace player
+namespace pong2
 {
-
-	void Initplayer(Player& player)
+	void Initplayer(Player& player, float initPlayerPosX, float initPlayerPosY)
 	{
 		//default stats for player
-		float initPlayer1PosX = 100;
-		float initPlayer1PosY = 225;
-
-		float initPlayer2PosX = 225;
-		float initPlayer2PosY = 225;
-
-		int playerRecWidth = 50;
+		int playerRecWidth = 25;
 		int playerRecHeight = 100;
 
 		player.playerColor = BROWN;
 		player.playerLives = 3;
 		player.playerPoints = 0;
 
-		player.playerRec.x = initPlayer1PosX;
-		player.playerRec.y = initPlayer1PosY;
+		player.playerRec.x = initPlayerPosX;
+		player.playerRec.y = initPlayerPosY;
 		player.playerRec.width = playerRecWidth;
 		player.playerRec.height = playerRecHeight;
-
-
-
 	}
-	void UpdatePlayer(Player& player)
+	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2)
 	{
+		//movimiento 
+		if (IsKeyDown(key1))
+		{
+			player.initPlayerPosY++;
+		}
+		else if (IsKeyDown(key2))
+		{
+			player.initPlayerPosY--;
+		}
+		else
+		{
+			playerIsNotMoving(player);
+		}
 	}
 	void DrawPlayer(Player& player)
 	{
+		DrawRectangle(player.playerRec.x, player.playerRec.y, player.playerRec.width,
+						player.playerRec.height, player.playerColor);
+	}
+
+	void playerIsNotMoving(Player& player)
+	{
+		player.initPlayerPosY = player.initPlayerPosY;
 	}
 }
