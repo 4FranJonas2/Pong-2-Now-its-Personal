@@ -14,10 +14,10 @@ namespace pong2
 		Color playerColor;
 		int playerPoints;
 		int playerLives;
+		float playerVel;
 	};
-	void Initplayer(Player& player, float initPlayerPosX, float initPlayerPosY);
+	void InitPlayer(Player& player, float initPlayerPosX, float initPlayerPosY);
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2);
-	void DrawPlayer(Player& player);
-	void playerIsNotMoving(Player& player);
+	void DrawPlayer(Player player);
 }
 
