@@ -7,28 +7,29 @@ namespace pong2
 		//default stats for player
 		int playerRecWidth = 25;
 		int playerRecHeight = 100;
-		float defaultVel = 0.1f;
 
 		player.playerColor = BROWN;
 		player.playerLives = 3;
 		player.playerPoints = 0;
-		player.playerVel = defaultVel;
+		player.playerVel = 0.1f;
 
 		player.playerRec.x = initPlayerPosX;
-		player.playerRec.y = initPlayerPosY;
+		player.playerRec.y = initPlayerPosY - (playerRecHeight/2);
 		player.playerRec.width = playerRecWidth;
 		player.playerRec.height = playerRecHeight;
 	}
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2)
 	{
 		//movimiento 
-		if (IsKeyDown(key2))
-		{
-			player.playerRec.y += player.playerVel;
-		}
+		//arriba
 		if (IsKeyDown(key1))
 		{
 			player.playerRec.y -= player.playerVel;
+		}
+		//abajo
+		if (IsKeyDown(key2))
+		{
+			player.playerRec.y += player.playerVel;
 		}
 	}
 	void DrawPlayer(Player player)

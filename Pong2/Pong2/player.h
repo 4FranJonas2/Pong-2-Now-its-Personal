@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+//#include "utilities.h"
+
 namespace pong2
 {
 	struct Player
