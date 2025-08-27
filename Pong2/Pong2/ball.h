@@ -26,11 +26,11 @@ namespace pong2
 		float initBallPosY = GetScreenHeight();
 
 		//BallDir ballDir;
-		Vector2 ballVelo;
+		Vector2 ballSpeed;
 		Circle ballCircle;
 		Color ballColor;
 		float ballVel;
-		bool ballFirstMove;
+		bool gamePause;
 	};
 
 	void InitBall(Ball& ball);

@@ -9,83 +9,100 @@ namespace pong2
 
 	void InitBall(Ball& ball)
 	{
-		ball.ballColor = RED;
-		ball.ballVel = 0.1f;
-
 		Vector2 ballPosition = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
-		Vector2 ballSpeed = { 5.0f, 4.0f };
-
-		ball.ballVelo = ballSpeed;
+		Vector2 ballSped = { 0.2f, 0.1f };
+		ball.ballColor = RED;
+		ball.ballSpeed = ballSped;
 		ball.ballCircle.pos.x = ballPosition.x;
 		ball.ballCircle.pos.y = ballPosition.y;
 		ball.ballCircle.rad = 20.0f;
-		ball.ballFirstMove = true;
+		ball.gamePause = true;
 	}
 
 	void UpdateBall(Ball& ball, Pong gamestats, Rectangle player1Rec)
 	{
-		/*ball.ballCircle.pos.y -= ball.ballVel;
-		ball.ballCircle.pos.x -= ball.ballVel;*/
-		int randDir = 0;
-
-		if (IsKeyPressed(KEY_SPACE) && ball.ballFirstMove)
+		if (IsKeyPressed(KEY_SPACE))
 		{
-			randDir = (GetRandomValue(1, 4));
+			ball.gamePause = !ball.gamePause;
+		}
+		if (!ball.gamePause)
+		{
+			ball.ballCircle.pos.x += ball.ballSpeed.x;
+			ball.ballCircle.pos.y += ball.ballSpeed.y;
 
-			ball.ballFirstMove = false;
-
-			//caso especial donde seteo una direccion random al iniciar
-			switch ((BallDir)randDir)
+			// Check walls collision for bouncing
+			if (ball.ballCircle.pos.x >= (GetScreenWidth() - ball.ballCircle.rad))
 			{
-			case::pong2::BallDir::UPRIGHT:				
-				ballDir = BallDir::UPRIGHT;
-				break;
-			case::pong2::BallDir::UPLEFT:				
-				ballDir = BallDir::UPLEFT;
-				break;
-			case::pong2::BallDir::DOWNRIGHT:				
-				ballDir = BallDir::DOWNRIGHT;
-				break;
-			case::pong2::BallDir::DOWNLEFT:
-				ballDir = BallDir::DOWNLEFT;
-				break;
-			default:
-				break;
+				ball.ballSpeed.x *= -1.0f;
 			}
+			if (ball.ballCircle.pos.x <= ball.ballCircle.rad)
+			{
+				ball.ballSpeed.x *= -1.0f;
+			}
+			if ((ball.ballCircle.pos.y >= (GetScreenHeight() - ball.ballCircle.rad)) || (ball.ballCircle.pos.y <= ball.ballCircle.rad)) ball.ballSpeed.y *= -1.0f;
+
 		}
 
-		if (!ball.ballFirstMove)
-		{
-			switch ((BallDir)ballDir)
-			{		
-			case::pong2::BallDir::UPRIGHT:	
-				ball.ballCircle.pos.y -= ball.ballVel;
-				ball.ballCircle.pos.x += ball.ballVel;
-				ballDir = BallDir::UPRIGHT;
-				break;
+		//int randDir = 0;
 
-			case::pong2::BallDir::UPLEFT:	
-				ball.ballCircle.pos.y -= ball.ballVel;
-				ball.ballCircle.pos.x -= ball.ballVel;
-				ballDir = BallDir::UPLEFT;
-				break;
+		//if (IsKeyPressed(KEY_SPACE) && ball.ballFirstMove)
+		//{
+		//	randDir = (GetRandomValue(1, 4));
 
-			case::pong2::BallDir::DOWNRIGHT:	
-				ball.ballCircle.pos.y += ball.ballVel;
-				ball.ballCircle.pos.x += ball.ballVel;
-				ballDir = BallDir::DOWNRIGHT;
-				break;
+		//	ball.ballFirstMove = false;
 
-			case::pong2::BallDir::DOWNLEFT:	
-				ball.ballCircle.pos.y += ball.ballVel;
-				ball.ballCircle.pos.x -= ball.ballVel;
-				ballDir = BallDir::DOWNLEFT;
-				break;
+		//	//caso especial donde seteo una direccion random al iniciar
+		//	switch ((BallDir)randDir)
+		//	{
+		//	case::pong2::BallDir::UPRIGHT:				
+		//		ballDir = BallDir::UPRIGHT;
+		//		break;
+		//	case::pong2::BallDir::UPLEFT:				
+		//		ballDir = BallDir::UPLEFT;
+		//		break;
+		//	case::pong2::BallDir::DOWNRIGHT:				
+		//		ballDir = BallDir::DOWNRIGHT;
+		//		break;
+		//	case::pong2::BallDir::DOWNLEFT:
+		//		ballDir = BallDir::DOWNLEFT;
+		//		break;
+		//	default:
+		//		break;
+		//	}
+		//}
 
-			default:
-				break;
-			}
-		}
+		//if (!ball.ballFirstMove)
+		//{
+		//	switch ((BallDir)ballDir)
+		//	{		
+		//	case::pong2::BallDir::UPRIGHT:	
+		//		ball.ballCircle.pos.y -= ball.ballVel;
+		//		ball.ballCircle.pos.x += ball.ballVel;
+		//		ballDir = BallDir::UPRIGHT;
+		//		break;
+
+		//	case::pong2::BallDir::UPLEFT:	
+		//		ball.ballCircle.pos.y -= ball.ballVel;
+		//		ball.ballCircle.pos.x -= ball.ballVel;
+		//		ballDir = BallDir::UPLEFT;
+		//		break;
+
+		//	case::pong2::BallDir::DOWNRIGHT:	
+		//		ball.ballCircle.pos.y += ball.ballVel;
+		//		ball.ballCircle.pos.x += ball.ballVel;
+		//		ballDir = BallDir::DOWNRIGHT;
+		//		break;
+
+		//	case::pong2::BallDir::DOWNLEFT:	
+		//		ball.ballCircle.pos.y += ball.ballVel;
+		//		ball.ballCircle.pos.x -= ball.ballVel;
+		//		ballDir = BallDir::DOWNLEFT;
+		//		break;
+
+		//	default:
+		//		break;
+		//	}
+		//}
 	}
 
 	void DrawBall(Ball ball)
