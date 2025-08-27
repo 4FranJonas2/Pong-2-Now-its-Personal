@@ -6,27 +6,26 @@ using namespace std;
 
 namespace pong2
 {
-	const int screenWidth = 800;
-	const int screenHeight = 450;
-
 	void GamePlay()
 	{
+		srand(time(nullptr));
+		Pong gameStats;
 		Player player1;
 		Player player2;
 		Ball ball;
 
-		InitWindow(screenWidth, screenHeight, "PONG2 Ahora es personal");
+		InitWindow(gameStats.screenWidth, gameStats.screenHeight, "PONG2 Ahora es personal");
 
-		Init(player1, player2);
+		Init(player1, player2, ball);
 
 		while (!WindowShouldClose())
 		{
-			Update(player1, player2);
+			Update(player1, player2, gameStats, ball);
 
 			BeginDrawing();
 
 			ClearBackground(BLACK);
-			Draw(player1, player2);
+			Draw(player1, player2, ball);
 
 			EndDrawing();
 		}
@@ -34,10 +33,11 @@ namespace pong2
 		CloseWindow();
 	}
 
-	void Init(Player& player1, Player& player2)
+	void Init(Player& player1, Player& player2, Ball& ball)
 	{
 		InitPlayer(player1, player1.initPlayer1PosX, player1.initPlayerPosY);
 		InitPlayer(player2, player2.initPlayer2PosX, player2.initPlayerPosY);
+		InitBall(ball);
 	}
 
 	void Input()
@@ -45,15 +45,17 @@ namespace pong2
 
 	}
 
-	void Update(Player& player1, Player& player2)
+	void Update(Player& player1, Player& player2, Pong& gameStats, Ball& ball)
 	{
 		UpdatePlayer(player1, KEY_W, KEY_S);
 		UpdatePlayer(player2, KEY_UP, KEY_DOWN);
+		UpdateBall(ball, gameStats);
 	}
 
-	void Draw(Player player1, Player player2)
+	void Draw(Player player1, Player player2, Ball& ball)
 	{
 		DrawPlayer(player1);
 		DrawPlayer(player2);
+		DrawBall(ball);
 	}
 }
