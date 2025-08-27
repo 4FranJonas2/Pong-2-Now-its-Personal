@@ -49,7 +49,7 @@ namespace pong2
 	{
 		UpdatePlayer(player1, KEY_W, KEY_S);
 		UpdatePlayer(player2, KEY_UP, KEY_DOWN);
-		UpdateBall(ball, gameStats);
+		UpdateBall(ball, gameStats, player1.playerRec);
 	}
 
 	void Draw(Player player1, Player player2, Ball& ball)

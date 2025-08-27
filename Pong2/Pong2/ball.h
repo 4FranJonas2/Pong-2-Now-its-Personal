@@ -26,6 +26,7 @@ namespace pong2
 		float initBallPosY = GetScreenHeight();
 
 		//BallDir ballDir;
+		Vector2 ballVelo;
 		Circle ballCircle;
 		Color ballColor;
 		float ballVel;
@@ -33,9 +34,9 @@ namespace pong2
 	};
 
 	void InitBall(Ball& ball);
-	void UpdateBall(Ball& ball, Pong gamestats);
+	void UpdateBall(Ball& ball, Pong gamestats, Rectangle playerRec);
 	void DrawBall(Ball ball);
-	void ballHitBox(Ball ball, int screenWidth, int screenHeiht);
+	//void ballHitBox(Ball ball, int screenWidth, int screenHeiht);
 
 }
 

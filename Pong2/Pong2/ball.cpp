@@ -12,13 +12,17 @@ namespace pong2
 		ball.ballColor = RED;
 		ball.ballVel = 0.1f;
 
-		ball.ballCircle.pos.x = (800 / 2);
-		ball.ballCircle.pos.y = (450 / 2);
+		Vector2 ballPosition = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+		Vector2 ballSpeed = { 5.0f, 4.0f };
+
+		ball.ballVelo = ballSpeed;
+		ball.ballCircle.pos.x = ballPosition.x;
+		ball.ballCircle.pos.y = ballPosition.y;
 		ball.ballCircle.rad = 20.0f;
 		ball.ballFirstMove = true;
 	}
 
-	void UpdateBall(Ball& ball, Pong gamestats)
+	void UpdateBall(Ball& ball, Pong gamestats, Rectangle player1Rec)
 	{
 		/*ball.ballCircle.pos.y -= ball.ballVel;
 		ball.ballCircle.pos.x -= ball.ballVel;*/
@@ -45,7 +49,6 @@ namespace pong2
 			case::pong2::BallDir::DOWNLEFT:
 				ballDir = BallDir::DOWNLEFT;
 				break;
-
 			default:
 				break;
 			}
@@ -91,10 +94,38 @@ namespace pong2
 			ball.ballCircle.rad, ball.ballColor);
 	}
 
-	void ballHitBox(Ball ball, int screenWidth, int screenHeiht)
-	{
+	//void ballHitBox(Ball ball, int screenWidth, int screenHeiht, Rectangle playerRec)
+	//{
+	//	// Check walls collision
+	//	bool IsRigthSide = ball.ballCircle.pos.x >= (screenWidth - ball.ballCircle.rad);
+	//	bool IsLeftSide = ball.ballCircle.pos.x <= (ball.ballCircle.rad);
+	//	bool IsTop = ball.ballCircle.pos.y <=  ball.ballCircle.rad;
+	//	bool IsBottom = ball.ballCircle.pos.y >= (screenHeiht - (ball.ballCircle.rad));
 
-	}
+	//	if (IsRigthSide)
+	//	{
+	//		ball.ballCircle.pos.x = (screenWidth - ball.ballRad);
+	//		ball.ballDir.x *= -1.0f;
+	//		player::AddPointPlayer1(player1);
+	//	}
+	//	else if (IsLeftSide)
+	//	{
+	//		ball.ballCircle.pos.x = (ball.ballRad + lineThick);
+	//		ball.ballDir.x *= -1.0f;
+	//		player::AddPointPlayer2(player2);
+	//	}
+
+	//	if (IsTop)
+	//	{
+	//		ball.ballCircle.pos.y = (gameArena.y + ball.ballRad + lineThick);
+	//		ball.ballDir.y *= -1.0f;
+	//	}
+	//	else if (IsBottom)
+	//	{
+	//		ball.ballCircle.pos.y = (heigth - (ball.ballRad + lineThick));
+	//		ball.ballDir.y *= -1.0f;
+	//	}
+	//}
 
 
 }
