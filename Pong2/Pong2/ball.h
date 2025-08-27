@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include "utilities.h"
+
 namespace pong2
 {
 	struct Circle
@@ -10,18 +12,31 @@ namespace pong2
 		float rad;
 	};
 
+	enum class BallDir
+	{
+		UPRIGHT=1,
+		UPLEFT,
+		DOWNRIGHT,
+		DOWNLEFT
+	};
+
 	struct Ball
 	{
 		float initBallPosX = GetScreenWidth();
 		float initBallPosY = GetScreenHeight();
 
+		//BallDir ballDir;
 		Circle ballCircle;
 		Color ballColor;
 		float ballVel;
+		bool ballFirstMove;
 	};
-	void InitBall(Ball& ball, float initBallPosX, float initBallPosY);
-	void UpdateBall(Ball& ball);
+
+	void InitBall(Ball& ball);
+	void UpdateBall(Ball& ball, Pong gamestats);
 	void DrawBall(Ball ball);
+	void ballHitBox(Ball ball, int screenWidth, int screenHeiht);
+
 }
 
 
