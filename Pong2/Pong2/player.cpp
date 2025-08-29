@@ -31,6 +31,8 @@ namespace pong2
 		{
 			player.playerRec.y += player.playerVel;
 		}
+
+
 	}
 	void DrawPlayer(Player player)
 	{
