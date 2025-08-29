@@ -1,6 +1,8 @@
 #include "game.h"
 
-void main()
+int main()
 {
 	pong2::GamePlay();
+
+	return 0;
 }
