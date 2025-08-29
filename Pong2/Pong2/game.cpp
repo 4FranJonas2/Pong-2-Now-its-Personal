@@ -47,13 +47,32 @@ namespace pong2
 
 	void Update(Player& player1, Player& player2, Pong& gameStats, Ball& ball)
 	{
-		UpdatePlayer(player1, KEY_W, KEY_S);
-		UpdatePlayer(player2, KEY_UP, KEY_DOWN);
-		UpdateBall(ball);
-		CheckCollisionBallArena(ball, player1.playerPoints, player2.playerPoints);
-		CheckCollisionBallPlayer(ball, player1.playerRec);
-		CheckCollisionBallPlayer(ball, player2.playerRec);
+		bool ballIsHitP1;
+		bool ballIsHitP2;
+		bool gamePause;
 
+		if (IsKeyPressed(KEY_SPACE))
+		{
+			gamePause = false;
+		}
+		if (!gamePause)
+		{
+			UpdatePlayer(player1, KEY_W, KEY_S);
+			UpdatePlayer(player2, KEY_UP, KEY_DOWN);
+			CheckCollisionBallArena(ball, player1.playerPoints, player2.playerPoints);
+			ballIsHitP1 = CheckCollisionBallPlayer(ball, player1.playerRec, player1.playerColor);
+			ballIsHitP2 = CheckCollisionBallPlayer(ball, player2.playerRec, player2.playerColor);
+			UpdateBall(ball);
+		
+			if (ballIsHitP1 or ballIsHitP2)
+			{
+				ball.ballColor = YELLOW;
+			}
+			else
+			{
+				ball.ballColor = RED;
+			}
+		}
 	}
 
 	void Draw(Player player1, Player player2, Ball& ball)
