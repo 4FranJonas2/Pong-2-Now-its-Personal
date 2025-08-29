@@ -29,15 +29,14 @@ namespace pong2
 		Circle ballCircle;
 		Color ballColor;
 		float ballVel;
-		bool gamePause;
 		int frameCounter;
 	};
 
 	void InitBall(Ball& ball);
 	void UpdateBall(Ball& ball);
-	void CheckCollisionBallPlayer(Ball& ball, Rectangle playerRec);
+	bool CheckCollisionBallPlayer(Ball& ball, Rectangle playerRec, Color& playerColor);
 	void CheckCollisionBallArena(Ball& ball, int player1Points, int player2Points);
-	void DrawBall(Ball ball);
+	void DrawBall(Ball& ball);
 }
 
 
