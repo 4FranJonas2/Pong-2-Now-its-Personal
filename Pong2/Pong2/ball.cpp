@@ -2,7 +2,6 @@
 
 #include <ctime>
 
-
 namespace pong2
 {
 	BallDir ballDir;
@@ -17,9 +16,10 @@ namespace pong2
 		ball.ballCircle.pos.y = ballPosition.y;
 		ball.ballCircle.rad = 20.0f;
 		ball.gamePause = true;
+		ball.frameCounter = 0;
 	}
 
-	void UpdateBall(Ball& ball, Pong gamestats, Rectangle player1Rec)
+	void UpdateBall(Ball& ball)
 	{
 		if (IsKeyPressed(KEY_SPACE))
 		{
@@ -28,121 +28,63 @@ namespace pong2
 		if (!ball.gamePause)
 		{
 			ball.ballCircle.pos.x += ball.ballSpeed.x;
-			ball.ballCircle.pos.y += ball.ballSpeed.y;
-
-			// Check walls collision for bouncing
-			if (ball.ballCircle.pos.x >= (GetScreenWidth() - ball.ballCircle.rad))
-			{
-				ball.ballSpeed.x *= -1.0f;
-			}
-			if (ball.ballCircle.pos.x <= ball.ballCircle.rad)
-			{
-				ball.ballSpeed.x *= -1.0f;
-			}
-			if ((ball.ballCircle.pos.y >= (GetScreenHeight() - ball.ballCircle.rad)) || (ball.ballCircle.pos.y <= ball.ballCircle.rad)) ball.ballSpeed.y *= -1.0f;
-
+			ball.ballCircle.pos.y += ball.ballSpeed.y;	
 		}
+		else
+		{
+			ball.frameCounter++;
+		}
+	}
 
-		//int randDir = 0;
+	void CheckCollisionBallPlayer(Ball& ball, Rectangle playerRec)
+	{
+		//chequeo de rebote con los bordes de la arena
+			//rebote derecho e izquierdo bas abajo
+		if (ball.ballCircle.pos.x >= ((playerRec.width / 2) - ball.ballCircle.rad))
+		{
+			ball.ballSpeed.x *= -1.0f;
+		}
+		if (ball.ballCircle.pos.x <= ball.ballCircle.rad + (playerRec.width / 2))
+		{
+			ball.ballSpeed.x *= -1.0f;
+		}
+		//rebote inferior y superior
+		if ((ball.ballCircle.pos.y >= ((playerRec.height / 2) - ball.ballCircle.rad))
+			|| (ball.ballCircle.pos.y <= ball.ballCircle.rad + (playerRec.height / 2)))
+		{
+			ball.ballSpeed.y *= -1.0f;
+		}
+	}
 
-		//if (IsKeyPressed(KEY_SPACE) && ball.ballFirstMove)
-		//{
-		//	randDir = (GetRandomValue(1, 4));
-
-		//	ball.ballFirstMove = false;
-
-		//	//caso especial donde seteo una direccion random al iniciar
-		//	switch ((BallDir)randDir)
-		//	{
-		//	case::pong2::BallDir::UPRIGHT:				
-		//		ballDir = BallDir::UPRIGHT;
-		//		break;
-		//	case::pong2::BallDir::UPLEFT:				
-		//		ballDir = BallDir::UPLEFT;
-		//		break;
-		//	case::pong2::BallDir::DOWNRIGHT:				
-		//		ballDir = BallDir::DOWNRIGHT;
-		//		break;
-		//	case::pong2::BallDir::DOWNLEFT:
-		//		ballDir = BallDir::DOWNLEFT;
-		//		break;
-		//	default:
-		//		break;
-		//	}
-		//}
-
-		//if (!ball.ballFirstMove)
-		//{
-		//	switch ((BallDir)ballDir)
-		//	{		
-		//	case::pong2::BallDir::UPRIGHT:	
-		//		ball.ballCircle.pos.y -= ball.ballVel;
-		//		ball.ballCircle.pos.x += ball.ballVel;
-		//		ballDir = BallDir::UPRIGHT;
-		//		break;
-
-		//	case::pong2::BallDir::UPLEFT:	
-		//		ball.ballCircle.pos.y -= ball.ballVel;
-		//		ball.ballCircle.pos.x -= ball.ballVel;
-		//		ballDir = BallDir::UPLEFT;
-		//		break;
-
-		//	case::pong2::BallDir::DOWNRIGHT:	
-		//		ball.ballCircle.pos.y += ball.ballVel;
-		//		ball.ballCircle.pos.x += ball.ballVel;
-		//		ballDir = BallDir::DOWNRIGHT;
-		//		break;
-
-		//	case::pong2::BallDir::DOWNLEFT:	
-		//		ball.ballCircle.pos.y += ball.ballVel;
-		//		ball.ballCircle.pos.x -= ball.ballVel;
-		//		ballDir = BallDir::DOWNLEFT;
-		//		break;
-
-		//	default:
-		//		break;
-		//	}
-		//}
+	void CheckCollisionBallArena(Ball& ball, int player1Points, int player2Points)
+	{
+		//chequeo de rebote con los bordes de la arena
+			//rebote derecho e izquierdo bas abajo
+		if (ball.ballCircle.pos.x >= (GetScreenWidth() - ball.ballCircle.rad))
+		{
+			ball.ballSpeed.x *= -1.0f;
+			player2Points++;
+		}
+		if (ball.ballCircle.pos.x <= ball.ballCircle.rad)
+		{
+			ball.ballSpeed.x *= -1.0f;
+			player1Points++;
+		}
+		//rebote inferior y superior
+		if ((ball.ballCircle.pos.y >= (GetScreenHeight() - ball.ballCircle.rad))
+			|| (ball.ballCircle.pos.y <= ball.ballCircle.rad))
+		{
+			ball.ballSpeed.y *= -1.0f;
+		}
 	}
 
 	void DrawBall(Ball ball)
 	{
 		DrawCircle(ball.ballCircle.pos.x, ball.ballCircle.pos.y,
 			ball.ballCircle.rad, ball.ballColor);
+		if (ball.gamePause && ((ball.frameCounter / 30) % 2))
+		{
+			DrawText("PAUSED", 350, 200, 20, GRAY);
+		}
 	}
-
-	//void ballHitBox(Ball ball, int screenWidth, int screenHeiht, Rectangle playerRec)
-	//{
-	//	// Check walls collision
-	//	bool IsRigthSide = ball.ballCircle.pos.x >= (screenWidth - ball.ballCircle.rad);
-	//	bool IsLeftSide = ball.ballCircle.pos.x <= (ball.ballCircle.rad);
-	//	bool IsTop = ball.ballCircle.pos.y <=  ball.ballCircle.rad;
-	//	bool IsBottom = ball.ballCircle.pos.y >= (screenHeiht - (ball.ballCircle.rad));
-
-	//	if (IsRigthSide)
-	//	{
-	//		ball.ballCircle.pos.x = (screenWidth - ball.ballRad);
-	//		ball.ballDir.x *= -1.0f;
-	//		player::AddPointPlayer1(player1);
-	//	}
-	//	else if (IsLeftSide)
-	//	{
-	//		ball.ballCircle.pos.x = (ball.ballRad + lineThick);
-	//		ball.ballDir.x *= -1.0f;
-	//		player::AddPointPlayer2(player2);
-	//	}
-
-	//	if (IsTop)
-	//	{
-	//		ball.ballCircle.pos.y = (gameArena.y + ball.ballRad + lineThick);
-	//		ball.ballDir.y *= -1.0f;
-	//	}
-	//	else if (IsBottom)
-	//	{
-	//		ball.ballCircle.pos.y = (heigth - (ball.ballRad + lineThick));
-	//		ball.ballDir.y *= -1.0f;
-	//	}
-	//}
-
-
 }
