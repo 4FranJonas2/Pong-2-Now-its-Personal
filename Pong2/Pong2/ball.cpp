@@ -1,5 +1,7 @@
 #include "ball.h"
 
+#include <iostream>
+
 #include <ctime>
 #include <math.h>
 
@@ -11,6 +13,8 @@ namespace pong2
 	{
 		Vector2 ballPosition = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
 		Vector2 ballSped = { 0.1f, 0.1f };
+
+		//ball.ballSize = 
 		ball.ballColor = RED;
 		ball.ballSpeed = ballSped;
 		ball.ballCircle.pos.x = ballPosition.x;
@@ -27,20 +31,60 @@ namespace pong2
 
 	bool CheckCollisionBallPlayer(Ball& ball, Rectangle playerRec, Color& playerColor)
 	{
-		if (ball.ballCircle.pos.x + ball.ballCircle.rad >= playerRec.x &&     //izq
-			ball.ballCircle.pos.x - ball.ballCircle.rad <= playerRec.x + playerRec.width   // derech
-			
-			)
-
+		if (ball.ballCircle.pos.x + ball.ballCircle.rad >= playerRec.x &&  //izquierda
+			ball.ballCircle.pos.x - ball.ballCircle.rad <= playerRec.x + playerRec.width && //derecha
+			ball.ballCircle.pos.y + ball.ballCircle.rad >= playerRec.y && //arriba
+			ball.ballCircle.pos.y - ball.ballCircle.rad <= playerRec.y + playerRec.height) //abajo
 		{
 			playerColor = WHITE;
 			ball.ballColor = YELLOW;
+			
+			bool test = false;
+
+			//golpe por derecha
+			if (ball.ballCircle.pos.x - ball.ballCircle.rad > playerRec.x + playerRec.width)
+			{
+				ball.ballCircle.pos.x = playerRec.x + ball.ballCircle.rad + playerRec.width;
+				test = true;
+			}
+
+			//golpe por izquierda
+			if (ball.ballCircle.pos.x + ball.ballCircle.rad < playerRec.x)
+			{
+				ball.ballCircle.pos.x = playerRec.x - ball.ballCircle.rad;
+				test = true;
+
+			}
+
+			//golpe por arriba
+			if (ball.ballCircle.pos.y + ball.ballCircle.rad < playerRec.y)
+			{
+				ball.ballCircle.pos.y = playerRec.y - ball.ballCircle.rad;
+				test = true;
+
+			}
+
+			//golpe por abajo
+			if (ball.ballCircle.pos.y + ball.ballCircle.rad > playerRec.y + playerRec.height)
+			{
+				ball.ballCircle.pos.y = playerRec.y + playerRec.height + ball.ballCircle.rad;
+				test = true;
+
+			}
+
+			if (test == false)
+			{
+				std::cout << "Problema" << std::endl;
+			}
+
+			ball.ballSpeed.x *= -1.0f;
+			ball.ballSpeed.y *= -1.0f;
+			
+			std::cout << "colision" << std::endl;
+
 			return true;
-			/*ball.ballSpeed.x *= -1.0f;
-			ball.ballSpeed.y *= -1.0f;*/
-			//ball.ballCircle.pos.x = ball.ballCircle.pos.x + ball.ballCircle.rad /*(playerRec.width / 2)*/;
-			//ball.ballCircle.pos.y = ball.ballCircle.pos.y + ball.ballCircle.rad /*(playerRec.height / 2)*/;
 		}
+
 		else
 		{
 			playerColor = BROWN;
@@ -49,24 +93,36 @@ namespace pong2
 		}
 	}
 
-	void CheckCollisionBallArena(Ball& ball, int player1Points, int player2Points)
+	void CheckCollisionBallArena(Ball& ball, int& player1Points, int& player2Points)
 	{
 		//chequeo de rebote con los bordes de la arena
 		//rebote derecho e izquierdo bas abajo
 		if (ball.ballCircle.pos.x >= (GetScreenWidth() - ball.ballCircle.rad))
 		{
+			ball.ballCircle.pos.x = GetScreenWidth() - ball.ballCircle.rad;
 			ball.ballSpeed.x *= -1.0f;
 			player2Points++;
+
+			std::cout << "player   2 points: " << player2Points << std::endl;
 		}
+
 		if (ball.ballCircle.pos.x <= ball.ballCircle.rad)
 		{
+			ball.ballCircle.pos.x = ball.ballCircle.rad;
 			ball.ballSpeed.x *= -1.0f;
 			player1Points++;
+			std::cout << "player   1 points: " << player1Points << std::endl;
 		}
+
 		//rebote inferior y superior
-		if ((ball.ballCircle.pos.y >= (GetScreenHeight() - ball.ballCircle.rad))
-			|| (ball.ballCircle.pos.y <= ball.ballCircle.rad))
+		if (ball.ballCircle.pos.y >= (GetScreenHeight() - ball.ballCircle.rad))
 		{
+			ball.ballCircle.pos.y = (GetScreenHeight() - ball.ballCircle.rad);
+			ball.ballSpeed.y *= -1.0f;
+		}
+		else if (ball.ballCircle.pos.y <= ball.ballCircle.rad)
+		{
+			ball.ballCircle.pos.y = ball.ballCircle.rad;
 			ball.ballSpeed.y *= -1.0f;
 		}
 	}
