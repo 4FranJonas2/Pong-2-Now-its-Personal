@@ -6,6 +6,8 @@ using namespace std;
 
 namespace pong2
 {
+	bool gamePause = true;
+
 	void GamePlay()
 	{
 		srand(time(nullptr));
@@ -49,7 +51,7 @@ namespace pong2
 	{
 		bool ballIsHitP1;
 		bool ballIsHitP2;
-		bool gamePause;
+		
 
 		if (IsKeyPressed(KEY_SPACE))
 		{
