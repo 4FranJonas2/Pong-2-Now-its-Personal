@@ -10,7 +10,6 @@ namespace pong2
 	{
 		float initPlayer1PosX = 10;
 		float initPlayer2PosX = 775;
-		float initPlayerPosY = 225;
 
 		Rectangle playerRec;
 		Color playerColor;
@@ -18,7 +17,7 @@ namespace pong2
 		int playerLives;
 		float playerVel;
 	};
-	void InitPlayer(Player& player, float initPlayerPosX, float initPlayerPosY);
+	void InitPlayer(Player& player, float initPlayerPosX);
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2);
 	void DrawPlayer(Player player);
 }
