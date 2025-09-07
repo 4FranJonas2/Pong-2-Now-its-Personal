@@ -37,8 +37,8 @@ namespace pong2
 
 	void Init(Player& player1, Player& player2, Ball& ball)
 	{
-		InitPlayer(player1, player1.initPlayer1PosX, player1.initPlayerPosY);
-		InitPlayer(player2, player2.initPlayer2PosX, player2.initPlayerPosY);
+		InitPlayer(player1, player1.initPlayer1PosX);
+		InitPlayer(player2, player2.initPlayer2PosX);
 		InitBall(ball);
 	}
 
