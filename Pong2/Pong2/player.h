@@ -8,8 +8,8 @@ namespace pong2
 {
 	struct Player
 	{
-		float initPlayer1PosX = 100;
-		float initPlayer2PosX = 700;
+		float initPlayer1PosX = 10;
+		float initPlayer2PosX = 775;
 		float initPlayerPosY = 225;
 
 		Rectangle playerRec;

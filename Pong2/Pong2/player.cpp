@@ -5,7 +5,7 @@ namespace pong2
 	void InitPlayer(Player& player, float initPlayerPosX, float initPlayerPosY)
 	{
 		//default stats for player
-		int playerRecWidth = 25;
+		int playerRecWidth = 15;
 		int playerRecHeight = 100;
 
 		player.playerColor = BROWN;
