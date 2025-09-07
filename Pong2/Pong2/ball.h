@@ -22,8 +22,7 @@ namespace pong2
 
 	struct Ball
 	{
-		float initBallPosX = GetScreenWidth();
-		float initBallPosY = GetScreenHeight();
+		
 
 		Vector2 ballSize;
 		Vector2 ballSpeed;

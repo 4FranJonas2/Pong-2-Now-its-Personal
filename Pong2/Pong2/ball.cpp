@@ -11,15 +11,18 @@ namespace pong2
 
 	void InitBall(Ball& ball)
 	{
+		float initBallPosX = GetScreenWidth();
+		float initBallPosY = GetScreenHeight();
+
 		Vector2 ballPosition = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
 		Vector2 ballSped = { 0.1f, 0.1f };
 
 		//ball.ballSize = 
-		ball.ballColor = RED;
+		ball.ballColor = ORANGE;
 		ball.ballSpeed = ballSped;
 		ball.ballCircle.pos.x = ballPosition.x;
 		ball.ballCircle.pos.y = ballPosition.y;
-		ball.ballCircle.rad = 20.0f;
+		ball.ballCircle.rad = 15.0f;
 		ball.frameCounter = 0;
 	}
 
