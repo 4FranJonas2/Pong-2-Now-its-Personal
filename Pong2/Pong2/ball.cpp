@@ -57,7 +57,7 @@ namespace pong2
 			}
 
 			//golpe por arriba
-			if (ball.ballCircle.pos.y + ball.ballCircle.rad < playerRec.y)
+			if (ball.ballCircle.pos.y - ball.ballCircle.rad < playerRec.y)
 			{
 				ball.ballCircle.pos.y = playerRec.y - ball.ballCircle.rad;
 				test = true;
