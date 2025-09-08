@@ -39,59 +39,38 @@ namespace pong2
 			ball.ballCircle.pos.y + ball.ballCircle.rad >= playerRec.y && //arriba
 			ball.ballCircle.pos.y - ball.ballCircle.rad <= playerRec.y + playerRec.height) //abajo
 		{
-			playerColor = WHITE;
-			ball.ballColor = YELLOW;
-			
-			bool test = false;
-
 			//golpe por derecha
 			if (ball.ballCircle.pos.x - ball.ballCircle.rad > playerRec.x + playerRec.width)
 			{
 				ball.ballCircle.pos.x = playerRec.x + ball.ballCircle.rad + playerRec.width;
-				test = true;
 			}
 
 			//golpe por izquierda
 			if (ball.ballCircle.pos.x + ball.ballCircle.rad < playerRec.x)
 			{
 				ball.ballCircle.pos.x = playerRec.x - ball.ballCircle.rad;
-				test = true;
-
 			}
 
 			//golpe por arriba
 			if (ball.ballCircle.pos.y - ball.ballCircle.rad < playerRec.y)
 			{
 				ball.ballCircle.pos.y = playerRec.y - ball.ballCircle.rad;
-				test = true;
-
 			}
 
 			//golpe por abajo
 			if (ball.ballCircle.pos.y + ball.ballCircle.rad > playerRec.y + playerRec.height)
 			{
 				ball.ballCircle.pos.y = playerRec.y + playerRec.height + ball.ballCircle.rad;
-				test = true;
-
-			}
-
-			if (test == false)
-			{
-				std::cout << "Problema" << std::endl;
 			}
 
 			ball.ballSpeed.x *= -1.0f;
 			ball.ballSpeed.y *= -1.0f;
-			
-			std::cout << "colision" << std::endl;
 
 			return true;
 		}
 
 		else
 		{
-			playerColor = BROWN;
-			ball.ballColor = RED;
 			return false;
 		}
 	}

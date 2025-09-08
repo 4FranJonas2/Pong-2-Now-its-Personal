@@ -70,10 +70,7 @@ namespace pong2
 			{
 				ball.ballColor = YELLOW;
 			}
-			else
-			{
-				ball.ballColor = RED;
-			}
+			
 		}
 	}
 
