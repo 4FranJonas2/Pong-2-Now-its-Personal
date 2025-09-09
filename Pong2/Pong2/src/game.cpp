@@ -16,7 +16,6 @@ namespace pong2
 
 		gameStats.gameManager = SceneStatus::INITGAME;
 
-
 		Init(player1, player2, ball,gameStats);
 
 		while (!WindowShouldClose())
@@ -64,21 +63,10 @@ namespace pong2
 		
 	}
 
-	/*void Input()
-	{
-
-	}*/
-
 	void Update(Player& player1, Player& player2, Pong& gameStats, Ball& ball)
 	{
 		switch ((SceneStatus)gameStats.gameManager)
 		{
-		case SceneStatus::INITGAME:
-			break;	
-
-		case SceneStatus::GAMEMENU:
-			break;
-
 		case SceneStatus::GAMEPLAYTWOPLAYERS:
 			bool ballIsHitP1;
 			bool ballIsHitP2;
@@ -150,6 +138,8 @@ namespace pong2
 			DrawPlayer(player2);
 			DrawBall(ball);
 			PrintPause();
+			PrintRules();
+			PrintCredits();
 			break;
 
 		case SceneStatus::RESETGAME:
