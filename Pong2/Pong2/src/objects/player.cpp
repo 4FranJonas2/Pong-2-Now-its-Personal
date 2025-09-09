@@ -12,7 +12,7 @@ namespace pong2
 		player.playerColor = BROWN;
 		player.playerLives = 3;
 		player.playerPoints = 2;
-		player.playerVel = 0.1f;
+		player.playerVel = 300.0f;
 
 		player.playerRec.x = initPlayerPosX;
 		player.playerRec.y = initPlayerPosY - (playerRecHeight/2);
@@ -25,12 +25,12 @@ namespace pong2
 		//arriba
 		if (IsKeyDown(key1))
 		{
-			player.playerRec.y -= player.playerVel;
+			player.playerRec.y -= player.playerVel * GetFrameTime();
 		}
 		//abajo
 		if (IsKeyDown(key2))
 		{
-			player.playerRec.y += player.playerVel;
+			player.playerRec.y += player.playerVel * GetFrameTime();
 		}
 
 

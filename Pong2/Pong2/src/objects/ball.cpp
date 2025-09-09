@@ -15,7 +15,7 @@ namespace pong2
 		float initBallPosY = GetScreenHeight();
 
 		Vector2 ballPosition = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
-		Vector2 ballSped = { 0.1f, 0.1f };
+		Vector2 ballSped = {350.0f, 350.0f };
 
 		//ball.ballSize = 
 		ball.ballColor = ORANGE;
@@ -28,8 +28,8 @@ namespace pong2
 
 	void UpdateBall(Ball& ball)
 	{	
-			ball.ballCircle.pos.x += ball.ballSpeed.x * 0.2f;
-			ball.ballCircle.pos.y += ball.ballSpeed.y * 0.2f;
+			ball.ballCircle.pos.x += ball.ballSpeed.x * GetFrameTime();
+			ball.ballCircle.pos.y += ball.ballSpeed.y * GetFrameTime();
 	}
 
 	bool CheckCollisionBallPlayer(Ball& ball, Rectangle playerRec, Color& playerColor)
