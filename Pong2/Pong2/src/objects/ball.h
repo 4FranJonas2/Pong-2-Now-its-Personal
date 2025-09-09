@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-#include "utilities.h"
+#include "..\utilities.h"
 
 namespace pong2
 {
