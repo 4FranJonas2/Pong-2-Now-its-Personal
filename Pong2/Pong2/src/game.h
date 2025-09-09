@@ -1,13 +1,14 @@
 #pragma once
 
-#include "player.h"
-#include "ball.h"
+#include "objects/player.h"
+#include "objects/ball.h"
+#include "scenes/gameUI.h"
 
 namespace pong2
 {
 	void GamePlay();
-	void Init(Player& player1, Player& player2,Ball& ball);
+	void Init(Player& player1, Player& player2,Ball& ball, Pong& gameStats);
 	//void Input();
 	void Update(Player& player1, Player& player2, Pong& gameStats, Ball& ball);
-	void Draw(Player player1, Player player2, Ball& ball);
+	void Draw(Player player1, Player player2, Ball& ball, Pong& gameStats);
 }
