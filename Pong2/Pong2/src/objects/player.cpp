@@ -11,7 +11,7 @@ namespace pong2
 
 		player.playerColor = BROWN;
 		player.playerLives = 3;
-		player.playerPoints = 0;
+		player.playerPoints = 2;
 		player.playerVel = 0.1f;
 
 		player.playerRec.x = initPlayerPosX;
@@ -39,5 +39,15 @@ namespace pong2
 	{
 		DrawRectangle(player.playerRec.x, player.playerRec.y, player.playerRec.width,
 			player.playerRec.height, player.playerColor);
+	}
+
+	void CheckPlayerPoints(int player1Points,int player2Points, SceneStatus& gameStatus)
+	{
+ 		int winScore = 3;
+		
+		if (player1Points >= winScore || player2Points >= winScore)
+		{
+			gameStatus = SceneStatus::GAMEEND;
+		}
 	}
 }

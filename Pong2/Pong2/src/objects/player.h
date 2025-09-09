@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-//#include "utilities.h"
+#include "../utilities.h"
 
 namespace pong2
 {
@@ -17,8 +17,10 @@ namespace pong2
 		int playerLives;
 		float playerVel;
 	};
+
 	void InitPlayer(Player& player, float initPlayerPosX);
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2);
+	void CheckPlayerPoints(int playerpoints, int player2Points, SceneStatus& gameStatus);
 	void DrawPlayer(Player player);
 }
 
