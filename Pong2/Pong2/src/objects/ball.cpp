@@ -75,8 +75,9 @@ namespace pong2
 		}
 	}
 
-	void CheckCollisionBallArena(Ball& ball, int& player1Points, int& player2Points)
+	void CheckCollisionBallArena(Ball& ball, int& player1Points, int& player2Points, SceneStatus& resetPoint)
 	{
+		int winScore = 3;
 		//chequeo de rebote con los bordes de la arena
 		//rebote derecho e izquierdo bas abajo
 		if (ball.ballCircle.pos.x >= (GetScreenWidth() - ball.ballCircle.rad))
@@ -84,8 +85,10 @@ namespace pong2
 			ball.ballCircle.pos.x = GetScreenWidth() - ball.ballCircle.rad;
 			ball.ballSpeed.x *= -1.0f;
 			player2Points++;
-
-			std::cout << "player   2 points: " << player2Points << std::endl;
+			if (player2Points < winScore)
+			{
+				resetPoint = SceneStatus::RESETGAME;
+			}
 		}
 
 		if (ball.ballCircle.pos.x <= ball.ballCircle.rad)
@@ -93,7 +96,10 @@ namespace pong2
 			ball.ballCircle.pos.x = ball.ballCircle.rad;
 			ball.ballSpeed.x *= -1.0f;
 			player1Points++;
-			std::cout << "player   1 points: " << player1Points << std::endl;
+			if (player1Points < winScore)
+			{
+				resetPoint = SceneStatus::RESETGAME;
+			}
 		}
 
 		//rebote inferior y superior

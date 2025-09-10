@@ -35,7 +35,7 @@ namespace pong2
 	void InitBall(Ball& ball);
 	void UpdateBall(Ball& ball);
 	bool CheckCollisionBallPlayer(Ball& ball, Rectangle playerRec, Color& playerColor);
-	void CheckCollisionBallArena(Ball& ball, int& player1Points, int& player2Points);
+	void CheckCollisionBallArena(Ball& ball, int& player1Points, int& player2Points, SceneStatus& resetPoint);
 	void DrawBall(Ball& ball);
 }
 
