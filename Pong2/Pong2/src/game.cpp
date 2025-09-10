@@ -39,9 +39,8 @@ namespace pong2
 		{
 		case SceneStatus::INITGAME:
 			InitWindow(gameStats.screenWidth, gameStats.screenHeight, "PongOso");
-
-			InitPlayer(player1, player1.initPlayer1PosX);
-			InitPlayer(player2, player2.initPlayer2PosX);
+			InitPlayer(player1, player1.initPlayer1PosX,gameStats.gameManager);
+			InitPlayer(player2, player2.initPlayer2PosX, gameStats.gameManager);
 			InitBall(ball);
 			gameStats.gameManager = SceneStatus::GAMEPAUSE;
 			break;
@@ -70,7 +69,7 @@ namespace pong2
 				UpdatePlayer(player2, KEY_UP, KEY_DOWN);
 				CheckPlayerColisionArena(player1, gameStats.screenHeight);
 				CheckPlayerColisionArena(player2, gameStats.screenHeight);
-				CheckCollisionBallArena(ball, player1.playerPoints, player2.playerPoints);
+				CheckCollisionBallArena(ball, player1.playerPoints, player2.playerPoints, gameStats.gameManager);
 				ballIsHitP1 = CheckCollisionBallPlayer(ball, player1.playerRec, player1.playerColor);
 				ballIsHitP2 = CheckCollisionBallPlayer(ball, player2.playerRec, player2.playerColor);
 				CheckPlayerPoints(player1.playerPoints, player2.playerPoints, gameStats.gameManager);
@@ -88,8 +87,8 @@ namespace pong2
 
 		case SceneStatus::RESETGAME:
 
-			InitPlayer(player1, player1.initPlayer1PosX);
-			InitPlayer(player2, player2.initPlayer2PosX);
+			InitPlayer(player1, player1.initPlayer1PosX, gameStats.gameManager);
+			InitPlayer(player2, player2.initPlayer2PosX, gameStats.gameManager);
 			InitBall(ball);
 			gameStats.gameManager = SceneStatus::GAMEPAUSE;
 			break;
@@ -99,6 +98,8 @@ namespace pong2
 			if (IsKeyPressed(KEY_ENTER))
 			{
 				gameStats.gameManager = SceneStatus::RESETGAME;
+				player1.gameEnd = true;
+				player2.gameEnd = true;
 			}
 			break;
 
