@@ -16,7 +16,7 @@ namespace pong2
 
 		gameStats.gameManager = SceneStatus::INITGAME;
 
-		Init(player1, player2, ball,gameStats);
+		Init(player1, player2, ball, gameStats);
 
 		while (!WindowShouldClose())
 		{
@@ -25,7 +25,7 @@ namespace pong2
 			BeginDrawing();
 
 			ClearBackground(BLACK);
-			Draw(player1, player2, ball,gameStats);
+			Draw(player1, player2, ball, gameStats);
 
 			EndDrawing();
 		}
@@ -45,22 +45,9 @@ namespace pong2
 			InitBall(ball);
 			gameStats.gameManager = SceneStatus::GAMEPAUSE;
 			break;
-
-		case SceneStatus::RESETGAME:
-			InitPlayer(player1, player1.initPlayer1PosX);
-			InitPlayer(player2, player2.initPlayer2PosX);
-			InitBall(ball);
-			gameStats.gameManager = SceneStatus::GAMEPLAYTWOPLAYERS;
-			break;
-
-		case SceneStatus::GAMEEND:
-			break;
-
 		default:
 			break;
 		}
-
-		
 	}
 
 	void Update(Player& player1, Player& player2, Pong& gameStats, Ball& ball)
@@ -68,6 +55,7 @@ namespace pong2
 		switch ((SceneStatus)gameStats.gameManager)
 		{
 		case SceneStatus::GAMEPLAYTWOPLAYERS:
+
 			bool ballIsHitP1;
 			bool ballIsHitP2;
 
@@ -86,9 +74,10 @@ namespace pong2
 				CheckPlayerPoints(player1.playerPoints, player2.playerPoints, gameStats.gameManager);
 				UpdateBall(ball);
 			}
-			break;	
+			break;
 
 		case SceneStatus::GAMEPAUSE:
+
 			if (IsKeyPressed(KEY_SPACE) && gameStats.gameManager == SceneStatus::GAMEPAUSE)
 			{
 				gameStats.gameManager = SceneStatus::GAMEPLAYTWOPLAYERS;
@@ -96,19 +85,24 @@ namespace pong2
 			break;
 
 		case SceneStatus::RESETGAME:
+
+			InitPlayer(player1, player1.initPlayer1PosX);
+			InitPlayer(player2, player2.initPlayer2PosX);
+			InitBall(ball);
+			gameStats.gameManager = SceneStatus::GAMEPAUSE;
 			break;
 
 		case SceneStatus::GAMEEND:
-			break;	
+
+			if (IsKeyPressed(KEY_ENTER))
+			{
+				gameStats.gameManager = SceneStatus::RESETGAME;
+			}
+			break;
 
 		default:
-			break;	
+			break;
 		}
-
-		
-
-		
-		
 	}
 
 	void Draw(Player player1, Player player2, Ball& ball, Pong& gameStats)
@@ -118,12 +112,23 @@ namespace pong2
 
 		switch ((SceneStatus)gameStats.gameManager)
 		{
-		case SceneStatus::GAMEMENU:
-			break;
+		case SceneStatus::INITGAME:
 
+			PrintScore(player1.playerPoints, auxPosXPlayer1);
+			PrintScore(player2.playerPoints, auxPosXPlayer2);
+			PrintArena(gameStats.screenWidth, gameStats.screenHeight);
+			DrawPlayer(player1);
+			DrawPlayer(player2);
+			DrawBall(ball);
+			PrintPause();
+			PrintRules();
+			PrintCredits();
+			break;
+	
 		case SceneStatus::GAMEPLAYTWOPLAYERS:
-			PrintScore(player1.playerPoints,auxPosXPlayer1);
-			PrintScore(player2.playerPoints,auxPosXPlayer2);
+
+			PrintScore(player1.playerPoints, auxPosXPlayer1);
+			PrintScore(player2.playerPoints, auxPosXPlayer2);
 			PrintArena(gameStats.screenWidth, gameStats.screenHeight);
 			DrawPlayer(player1);
 			DrawPlayer(player2);
@@ -131,8 +136,9 @@ namespace pong2
 			break;
 
 		case SceneStatus::GAMEPAUSE:
-			PrintScore(player1.playerPoints,auxPosXPlayer1);
-			PrintScore(player2.playerPoints,auxPosXPlayer2);
+
+			PrintScore(player1.playerPoints, auxPosXPlayer1);
+			PrintScore(player2.playerPoints, auxPosXPlayer2);
 			PrintArena(gameStats.screenWidth, gameStats.screenHeight);
 			DrawPlayer(player1);
 			DrawPlayer(player2);
@@ -142,14 +148,8 @@ namespace pong2
 			PrintCredits();
 			break;
 
-		case SceneStatus::RESETGAME:
-			DrawPlayer(player1);
-			DrawPlayer(player2);
-			DrawBall(ball);
-
-			break;
-
 		case SceneStatus::GAMEEND:
+
 			PrintEndMatchMsg(player1.playerPoints, player2.playerPoints, gameStats.gameManager);
 			PrintScore(player1.playerPoints, auxPosXPlayer1);
 			PrintScore(player2.playerPoints, auxPosXPlayer2);
