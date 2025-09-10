@@ -21,6 +21,7 @@ namespace pong2
 	void InitPlayer(Player& player, float initPlayerPosX);
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2);
 	void CheckPlayerPoints(int playerpoints, int player2Points, SceneStatus& gameStatus);
+	void CheckPlayerColisionArena(Player& player, int screenHeight);
 	void DrawPlayer(Player player);
 }
 

@@ -11,7 +11,7 @@ namespace pong2
 
 		player.playerColor = BROWN;
 		player.playerLives = 3;
-		player.playerPoints = 2;
+		player.playerPoints = 0;
 		player.playerVel = 300.0f;
 
 		player.playerRec.x = initPlayerPosX;
@@ -19,6 +19,7 @@ namespace pong2
 		player.playerRec.width = playerRecWidth;
 		player.playerRec.height = playerRecHeight;
 	}
+
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2)
 	{
 		//movimiento 
@@ -32,9 +33,8 @@ namespace pong2
 		{
 			player.playerRec.y += player.playerVel * GetFrameTime();
 		}
-
-
 	}
+
 	void DrawPlayer(Player player)
 	{
 		DrawRectangle(player.playerRec.x, player.playerRec.y, player.playerRec.width,
@@ -48,6 +48,17 @@ namespace pong2
 		if (player1Points >= winScore || player2Points >= winScore)
 		{
 			gameStatus = SceneStatus::GAMEEND;
+		}
+	}
+	void CheckPlayerColisionArena(Player& player, int screenHeight)
+	{
+		if (player.playerRec.y <= 0)
+		{
+			player.playerRec.y = 0;
+		}
+		if (player.playerRec.y + player.playerRec.height >= screenHeight)
+		{
+			player.playerRec.y = screenHeight - player.playerRec.height;
 		}
 	}
 }
