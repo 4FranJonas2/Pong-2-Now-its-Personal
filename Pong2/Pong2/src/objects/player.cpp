@@ -2,18 +2,23 @@
 
 namespace pong2
 {
-	void InitPlayer(Player& player, float initPlayerPosX)
+	void InitPlayer(Player& player, float initPlayerPosX, SceneStatus initGame)
 	{
 		//default stats for player
+		int winScore = 3;
 		int playerRecWidth = 15;
 		int playerRecHeight = 100;
 		float initPlayerPosY = 225;
 
 		player.playerColor = BROWN;
-		player.playerLives = 3;
-		player.playerPoints = 0;
-		player.playerVel = 300.0f;
 
+		if (initGame == SceneStatus::INITGAME || player.gameEnd)
+		{
+			player.playerLives = 3;
+			player.playerPoints = 0;
+			player.gameEnd = false;
+		}
+		player.playerVel = 300.0f;
 		player.playerRec.x = initPlayerPosX;
 		player.playerRec.y = initPlayerPosY - (playerRecHeight/2);
 		player.playerRec.width = playerRecWidth;

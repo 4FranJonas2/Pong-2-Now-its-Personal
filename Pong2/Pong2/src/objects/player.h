@@ -16,9 +16,10 @@ namespace pong2
 		int playerPoints;
 		int playerLives;
 		float playerVel;
+		bool gameEnd;
 	};
 
-	void InitPlayer(Player& player, float initPlayerPosX);
+	void InitPlayer(Player& player, float initPlayerPosX, SceneStatus initGame);
 	void UpdatePlayer(Player& player, KeyboardKey key1, KeyboardKey key2);
 	void CheckPlayerPoints(int playerpoints, int player2Points, SceneStatus& gameStatus);
 	void CheckPlayerColisionArena(Player& player, int screenHeight);
