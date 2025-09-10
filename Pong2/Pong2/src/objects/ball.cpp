@@ -84,8 +84,8 @@ namespace pong2
 		{
 			ball.ballCircle.pos.x = GetScreenWidth() - ball.ballCircle.rad;
 			ball.ballSpeed.x *= -1.0f;
-			player2Points++;
-			if (player2Points < winScore)
+			player1Points++;
+			if (player1Points < winScore)
 			{
 				resetPoint = SceneStatus::RESETGAME;
 			}
@@ -95,8 +95,8 @@ namespace pong2
 		{
 			ball.ballCircle.pos.x = ball.ballCircle.rad;
 			ball.ballSpeed.x *= -1.0f;
-			player1Points++;
-			if (player1Points < winScore)
+			player2Points++;
+			if (player2Points < winScore)
 			{
 				resetPoint = SceneStatus::RESETGAME;
 			}
