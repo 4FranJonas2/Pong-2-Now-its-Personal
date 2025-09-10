@@ -2,7 +2,6 @@
 
 namespace pong2
 {
-	
 	void PrintScore(int playerScore, int posX)
 	{
 		DrawText(TextFormat("%i",playerScore), posX, 200, 60, GRAY);
