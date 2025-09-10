@@ -68,6 +68,8 @@ namespace pong2
 			{
 				UpdatePlayer(player1, KEY_W, KEY_S);
 				UpdatePlayer(player2, KEY_UP, KEY_DOWN);
+				CheckPlayerColisionArena(player1, gameStats.screenHeight);
+				CheckPlayerColisionArena(player2, gameStats.screenHeight);
 				CheckCollisionBallArena(ball, player1.playerPoints, player2.playerPoints);
 				ballIsHitP1 = CheckCollisionBallPlayer(ball, player1.playerRec, player1.playerColor);
 				ballIsHitP2 = CheckCollisionBallPlayer(ball, player2.playerRec, player2.playerColor);
