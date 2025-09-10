@@ -16,7 +16,6 @@ namespace pong2
 	struct Pong
 	{
 		SceneStatus gameManager;
-		bool endGame = false;
 		const int screenWidth = 800;
 		const int screenHeight = 450;
 	};
